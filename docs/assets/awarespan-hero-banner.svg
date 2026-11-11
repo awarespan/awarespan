@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" width="100%" height="auto">
+  <defs>
+    <!-- Background Grid Pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#181818" stroke-width="1"/>
+    </pattern>
+    <!-- Ember Linear Accent -->
+    <linearGradient id="emberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4f2b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff4f2b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Void Black Canvas (0dp sharp rectangle) -->
+  <rect width="900" height="240" fill="#000000" stroke="#3c3c3c" stroke-width="2"/>
+
+  <!-- Subtle Structural Grid -->
+  <rect width="900" height="240" fill="url(#grid)"/>
+
+  <!-- Top Monospace Status Bar -->
+  <rect x="0" y="0" width="900" height="28" fill="#141414" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="24" y="19" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="600" fill="#737373" letter-spacing="1.5">
+    SYS:ONLINE  ·  SEC_LVL:4  ·  NODES:ACTIVE  ·  LOC:12.9716°N 77.5946°E  ·  TELEMETRY:STREAMING
+  </text>
+  <rect x="800" y="8" width="76" height="13" fill="#ff4f2b" rx="0"/>
+  <text x="807" y="18" font-family="'Courier New', Courier, monospace" font-size="9" font-weight="700" fill="#000000" letter-spacing="1">LIVE OPS</text>
+
+  <!-- Left Ember Power-On Indicator Bar (Sharp, 0dp) -->
+  <rect x="24" y="56" width="6" height="148" fill="#ff4f2b"/>
+
+  <!-- Brand Wordmark -->
+  <text x="48" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="46" font-weight="300" fill="#f5f5f5" letter-spacing="4">
+    AWARESPAN
+  </text>
+
+  <!-- Tagline -->
+  <text x="50" y="138" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="400" fill="#bfbfbf" letter-spacing="1.5">
+    AWARENESS WITHOUT BOUNDARIES.
+  </text>
+
+  <!-- Official Problem Statement & Mission -->
+  <text x="50" y="176" font-family="'Courier New', Courier, monospace" font-size="12" font-weight="500" fill="#737373" letter-spacing="0.8">
+    // OFFICIAL PROBLEM STATEMENT: <tspan fill="#f5f5f5">AN AI-POWERED SAFETY DEVICE</tspan>
+  </text>
+  <text x="50" y="196" font-family="'Courier New', Courier, monospace" font-size="11" fill="#ff4f2b" letter-spacing="1">
+    MULTI-MODAL EDGE SENSING  [+]  NEURAL THREAT ASSESSMENT  [+]  AUTONOMOUS DETERRENCE
+  </text>
+
+  <!-- Right Geometric Radar / Tactical Sensor Reticle -->
+  <g transform="translate(760, 134)">
+    <!-- Radar Rings -->
+    <circle cx="0" cy="0" r="70" fill="none" stroke="#262626" stroke-width="1"/>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#333333" stroke-width="1"/>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#3c3c3c" stroke-width="1"/>
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#ff4f2b" stroke-width="1.5"/>
+
+    <!-- Crosshairs -->
+    <line x1="-75" y1="0" x2="75" y2="0" stroke="#3c3c3c" stroke-width="1"/>
+    <line x1="0" y1="-75" x2="0" y2="75" stroke="#3c3c3c" stroke-width="1"/>
+
+    <!-- Sweep Indicator -->
+    <path d="M 0 0 L 45 -45 A 64 64 0 0 1 64 0 Z" fill="url(#emberGlow)"/>
+
+    <!-- Blip Indicator -->
+    <circle cx="35" cy="-25" r="3" fill="#ff4f2b"/>
+    <circle cx="35" cy="-25" r="7" fill="none" stroke="#ff4f2b" stroke-width="1" opacity="0.6"/>
+
+    <!-- Reticle Labels -->
+    <text x="-65" y="-55" font-family="'Courier New', Courier, monospace" font-size="8" fill="#737373">SPAN 360°</text>
+    <text x="25" y="65" font-family="'Courier New', Courier, monospace" font-size="8" fill="#ff4f2b">NODE_01</text>
+  </g>
+</svg>
