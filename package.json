@@ -1,5 +1,5 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "awarespan",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite dev",
     "build": "vite build && node scripts/patch-index.mjs",
     "build:dev": "vite build --mode development",
-    "preview": "vite preview",
+    "preview": "nitro preview",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

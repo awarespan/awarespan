@@ -1,4 +1,4 @@
-# robots.txt for SIP Guardian Landing Page
+# robots.txt for AWARESPAN Landing Page
 # https://sip.bchbenjamin.in
 
 User-agent: *

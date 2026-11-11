@@ -48,7 +48,7 @@ async function handleCronWake(): Promise<Response> {
       const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
       const res = await fetch(BACKEND_URL, {
         signal: controller.signal,
-        headers: { "User-Agent": "SIP-Cron/1.0" },
+        headers: { "User-Agent": "AWARESPAN-Cron/1.0" },
       });
       clearTimeout(timer);
       return { ok: res.ok, status: res.status };
@@ -69,10 +69,9 @@ async function handleCronWake(): Promise<Response> {
       { status: 502, headers: { "Content-Type": "application/json" } },
     );
   }
-  return new Response(
-    JSON.stringify({ ok: true, at: new Date().toISOString() }),
-    { headers: { "Content-Type": "application/json" } },
-  );
+  return new Response(JSON.stringify({ ok: true, at: new Date().toISOString() }), {
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 export default {

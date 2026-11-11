@@ -31,14 +31,14 @@ if (indexContent.includes("__nitro_ssr_handler__")) {
 
 // Inject: add ssr service reference and modify appHandler to call it
 const patch = `
-// --- SIP patch: invoke SSR service before renderer ---
+// --- AWARESPAN patch: invoke SSR service before renderer ---
 var __nitro_ssr_lazy = { fetch(req) { return import("./_ssr/ssr.mjs").then(m => m.default.fetch(req)); } };
 async function __nitro_ssr_handler(req) {
   if (req.method !== "GET") return null;
   // Route all GET requests to SSR — let TanStack Start handle routing
   return await __nitro_ssr_lazy.fetch(req);
 }
-// --- end SIP patch ---
+// --- end AWARESPAN patch ---
 `;
 
 const oldHandler = `	let appHandler = (req) => {
@@ -50,7 +50,7 @@ const oldHandler = `	let appHandler = (req) => {
 const newHandler = `	let appHandler = async (req) => {
 		req.context ||= {};
 		req.context.nitro = req.context.nitro || { errors: [] };
-		// SIP patch: check SSR service first for specific routes
+		// AWARESPAN patch: check SSR service first for specific routes
 		var ssrResult = await __nitro_ssr_handler(req);
 		if (ssrResult) return ssrResult;
 		return h3App.fetch(req);

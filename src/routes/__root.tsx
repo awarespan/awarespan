@@ -7,6 +7,7 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
@@ -20,9 +21,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-void px-4">
       <div className="max-w-md text-center">
-        <p className="text-xs uppercase tracking-widest text-ember">
-          &gt; error_404
-        </p>
+        <p className="text-xs uppercase tracking-widest text-ember">&gt; error_404</p>
         <h1 className="mt-4 text-6xl text-paper">NOT_FOUND</h1>
         <p className="mt-3 text-sm text-ash">
           the requested path is not registered in the route table.
@@ -38,20 +37,21 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    if (error instanceof Error) {
+      reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    }
   }, [error]);
+  const errorMessage = error instanceof Error ? error.message : String(error);
   return (
     <div className="flex min-h-screen items-center justify-center bg-void px-4">
       <div className="max-w-md text-center">
-        <p className="text-xs uppercase tracking-widest text-ember">
-          &gt; runtime_exception
-        </p>
+        <p className="text-xs uppercase tracking-widest text-ember">&gt; runtime_exception</p>
         <h1 className="mt-4 text-2xl text-paper">page_failed_to_load</h1>
-        <p className="mt-2 text-sm text-ash">{error.message}</p>
+        <p className="mt-2 text-sm text-ash">{errorMessage}</p>
         <button
           onClick={() => {
             router.invalidate();
@@ -71,20 +71,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SIP Guardian — AI Street Safety Device Network" },
+      { title: "AWARESPAN — Awareness Without Boundaries" },
       {
         name: "description",
         content:
-          "Proactive edge-AI street safety: a mesh of autonomous deterrence and dispatch nodes. Threat detection, real-time alerts, and autonomous response via Raspberry Pi edge devices.",
+          "An AI-Powered Safety Device. AWARESPAN combines edge AI, connected devices, and distributed intelligence to deliver situational awareness without boundaries.",
       },
       { name: "theme-color", content: "#000000" },
-      { property: "og:title", content: "SIP Guardian — AI Street Safety Device Network" },
-      { property: "og:description", content: "Edge-AI threat detection and autonomous safety response for urban environments." },
+      { property: "og:site_name", content: "AWARESPAN" },
+      { property: "og:title", content: "AWARESPAN — Awareness Without Boundaries" },
+      {
+        property: "og:description",
+        content:
+          "An AI-Powered Safety Device. Scalable, human-centred edge AI situational awareness and proactive safety ecosystem.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sip.bchbenjamin.in" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "SIP Guardian — AI Street Safety Device Network" },
-      { name: "twitter:description", content: "Edge-AI threat detection and autonomous safety response for urban environments." },
+      { name: "twitter:title", content: "AWARESPAN — Awareness Without Boundaries" },
+      {
+        name: "twitter:description",
+        content:
+          "An AI-Powered Safety Device. Scalable, human-centred edge AI situational awareness and proactive safety ecosystem.",
+      },
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
@@ -95,6 +104,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "AWARESPAN",
+          applicationCategory: "SafetyApplication",
+          operatingSystem: "Linux, Android, Web",
+          description:
+            "An AI-Powered Safety Device. AWARESPAN combines edge AI, connected devices, and distributed intelligence to deliver situational awareness without boundaries.",
+          url: "https://sip.bchbenjamin.in",
+          email: "awarespan@bchbenjamin.in",
+          author: {
+            "@type": "Organization",
+            name: "AWARESPAN",
+            email: "awarespan@bchbenjamin.in",
+          },
+        }),
       },
     ],
   }),

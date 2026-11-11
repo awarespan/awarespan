@@ -14,17 +14,23 @@ import { PageTransition, Reveal, TerminalLabel } from "../components/PageTransit
 export const Route = createFileRoute("/response")({
   head: () => ({
     meta: [
-      { title: "Threat Response System — AI Street Safety Device Network" },
+      { title: "Threat Response System — AWARESPAN" },
       {
         name: "description",
         content:
-          "Two-tier autonomous response: localized acoustic/visual deterrence for low-severity threats, and sub-500ms API escalation to police and EMS for the rest.",
+          "An AI-Powered Safety Device. Proportional two-tier threat assessment and response workflow: on-site active deterrence and low-latency emergency escalation.",
       },
-      { property: "og:title", content: "Two-Tier Threat Response" },
+      { property: "og:title", content: "AWARESPAN Threat Response System" },
       {
         property: "og:description",
         content:
-          "Deterrable vs non-deterrable threats — handled at the edge in under half a second.",
+          "Proportional threat assessment and response workflows balancing human-centred on-site deterrence with structured emergency escalation.",
+      },
+      { name: "twitter:title", content: "Threat Response System — AWARESPAN" },
+      {
+        name: "twitter:description",
+        content:
+          "An AI-Powered Safety Device. Proportional two-tier threat assessment and response workflow: on-site active deterrence and low-latency emergency escalation.",
       },
     ],
   }),
@@ -38,17 +44,17 @@ function ResponsePage() {
       <section className="border-b border-iron py-20">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <TerminalLabel>threat_response.md</TerminalLabel>
-            <h1 className="max-w-4xl text-4xl text-paper md:text-6xl">
+            <TerminalLabel>threat_assessment_and_response.md</TerminalLabel>
+            <h1 className="max-w-4xl text-4xl text-paper md:text-6xl font-bold">
               Two tiers.
               <br />
-              One proportional response.
+              <span className="text-ember">Proportional</span> intervention.
             </h1>
-            <p className="mt-6 max-w-3xl text-fog">
-              Every detection runs through a two-stage classifier. The second
-              stage decides which tier handles the threat — minimizing false
-              dispatch while never under-reacting to severe events. Ambiguous
-              cases default to escalation. Safety-first.
+            <p className="mt-6 max-w-3xl text-fog leading-relaxed">
+              Every sensory event passes through AWARESPAN&apos;s edge assessment engine. The
+              pipeline evaluates entity classification, environmental context, and threat
+              persistence before selecting an intervention pathway — preventing alarm fatigue while
+              ensuring rapid, structured escalation during severe incidents.
             </p>
           </Reveal>
         </div>
@@ -60,40 +66,59 @@ function ResponsePage() {
           <Reveal>
             <article className="border-l-2 border-ember bg-graphite p-8">
               <div className="flex items-center gap-3">
-                <span className="border border-ember px-2 py-0.5 text-xs uppercase tracking-widest text-ember">
+                <span className="border border-ember px-2 py-0.5 text-xs uppercase tracking-widest text-ember font-bold">
                   tier_1
                 </span>
                 <span className="text-xs uppercase tracking-widest text-ash">
-                  deterrable
+                  localized deterrence
                 </span>
               </div>
-              <h2 className="mt-4 text-3xl text-paper">
-                Active On-Site Deterrence
-              </h2>
-              <p className="mt-4 text-fog">
-                Wildlife intrusion, loitering, trespass. A localized ML
-                sub-classifier verifies the entity, then triggers
-                ML-generated acoustic and visual deterrents directly from the
-                node — no human, no cloud, no dispatch.
+              <h2 className="mt-4 text-3xl font-bold text-paper">Active On-Site Deterrence</h2>
+              <p className="mt-4 text-fog leading-relaxed">
+                Wildlife incursions, perimeter loitering, and restricted-zone trespass. The edge
+                node confirms the entity signature locally, then triggers targeted acoustic bursts
+                and directional strobe warnings directly from the hardware — resolving localized
+                anomalies without unnecessary authority dispatch.
               </p>
 
-              <ul className="mt-6 space-y-2 text-sm">
-                <SpecRow k="trigger" v="wildlife / loitering / trespass" />
-                <SpecRow k="model" v="YOLOv8n + species classifier" />
-                <SpecRow k="action" v="targeted-frequency speaker + IR strobe" />
-                <SpecRow k="latency" v="~ 200 ms" />
-                <SpecRow k="fallback" v="auto-escalate to tier_2 on timeout" />
+              <ul className="mt-6 space-y-2 text-sm font-mono">
+                <SpecRow k="trigger" v="Perimeter trespass / loitering / animal intrusion" />
+                <SpecRow k="model" v="YOLOv8n edge classifier" />
+                <SpecRow k="actuation" v="GPIO-driven directional strobe + acoustic emitter" />
+                <SpecRow k="latency" v="~ 200 ms localized trigger" />
+                <SpecRow k="status" v="Implemented in hardware prototype" />
               </ul>
             </article>
           </Reveal>
 
           <Reveal delay={0.1}>
             <div className="space-y-4">
-              <FlowStep icon={Activity} title="DETECT" body="Fused sensor input crosses confidence threshold." />
-              <FlowStep icon={AlertTriangle} title="VERIFY" body="Sub-classifier confirms entity type, rejects false positives." />
-              <FlowStep icon={Volume2} title="DETER" body="ML-generated acoustic burst at species-appropriate frequency." />
-              <FlowStep icon={Siren} title="VISUAL" body="LED strobe + buzzer in parallel for redundancy." />
-              <FlowStep icon={Zap} title="ESCALATE?" body="If target persists past timeout → tier_2 dispatch." last />
+              <FlowStep
+                icon={Activity}
+                title="DETECT"
+                body="Multi-sensor telemetry crosses confidence baseline."
+              />
+              <FlowStep
+                icon={AlertTriangle}
+                title="ASSESS"
+                body="Classifier verifies entity signature, filtering environmental false positives."
+              />
+              <FlowStep
+                icon={Volume2}
+                title="DETER"
+                body="Localized acoustic pulse activated to discourage unauthorized intrusion."
+              />
+              <FlowStep
+                icon={Siren}
+                title="WARN"
+                body="Directional LED strobe signals proactive awareness."
+              />
+              <FlowStep
+                icon={Zap}
+                title="ESCALATE?"
+                body="If threat persists or severity escalates → transitions to Tier 2."
+                last
+              />
             </div>
           </Reveal>
         </div>
@@ -104,40 +129,66 @@ function ResponsePage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start">
           <Reveal>
             <div className="space-y-4">
-              <FlowStep icon={Activity} title="DETECT" body="Severity classifier flags non-deterrable threat." />
-              <FlowStep icon={ShieldAlert} title="PACKAGE" body="GPS, timestamped clip, classification, confidence." />
-              <FlowStep icon={PhoneCall} title="DISPATCH" body="Structured API call to local police station." />
-              <FlowStep icon={Radio} title="BROADCAST" body="Parallel notification to EMS + nearby residents (SMS / app)." />
-              <FlowStep icon={Siren} title="PERSIST" body="Local deterrents remain active; full event logged." last />
+              <FlowStep
+                icon={Activity}
+                title="IDENTIFY"
+                body="Assessment engine classifies high-severity actionable threat."
+              />
+              <FlowStep
+                icon={ShieldAlert}
+                title="PACKAGE"
+                body="Encodes GPS coordinates, timestamped clip, class ID, and confidence."
+              />
+              <FlowStep
+                icon={Radio}
+                title="STREAM"
+                body="Transmits incident package over MQTT (QoS 1) with offline SQLite backup."
+              />
+              <FlowStep
+                icon={PhoneCall}
+                title="DISPATCH"
+                body="Real-time WebSocket alerts delivered to Android operator application."
+              />
+              <FlowStep
+                icon={Siren}
+                title="RESOLVE"
+                body="Event permanently recorded in central database for incident audit."
+                last
+              />
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <article className="border-l-2 border-ember bg-graphite p-8 lg:order-first lg:hidden" />
             <article className="border-l-2 border-ember bg-graphite p-8">
               <div className="flex items-center gap-3">
-                <span className="border border-ember px-2 py-0.5 text-xs uppercase tracking-widest text-ember">
+                <span className="border border-ember px-2 py-0.5 text-xs uppercase tracking-widest text-ember font-bold">
                   tier_2
                 </span>
                 <span className="text-xs uppercase tracking-widest text-ash">
-                  non-deterrable
+                  emergency escalation
                 </span>
               </div>
-              <h2 className="mt-4 text-3xl text-paper">
-                Emergency Escalation
+              <h2 className="mt-4 text-3xl font-bold text-paper">
+                Structured Emergency Escalation
               </h2>
-              <p className="mt-4 text-fog">
-                Armed intrusion, robbery, assault, road accidents, medical
-                emergencies. The node packages evidence and dispatches
-                automated, structured alerts to multiple authorities in
-                parallel — closing the 15–30 minute response gap.
+              <p className="mt-4 text-fog leading-relaxed">
+                Armed threats, physical violence, vehicular accidents, and critical emergencies. The
+                node bundles verifiable forensic telemetry and dispatches structured alerts to
+                system operators, shrinking conventional response delays through immediate,
+                actionable situational awareness.
               </p>
 
-              <ul className="mt-6 space-y-2 text-sm">
-                <SpecRow k="trigger" v="weapons / assault / accident / fire" />
-                <SpecRow k="model" v="YOLOv8s + audio LSTM (screams, gunshots)" />
-                <SpecRow k="action" v="MQTT + REST → police, EMS, locals" />
-                <SpecRow k="latency" v="< 500 ms end-to-end" />
-                <SpecRow k="payload" v="class, gps, snapshot, confidence" />
+              <ul className="mt-6 space-y-2 text-sm font-mono">
+                <SpecRow
+                  k="trigger"
+                  v="Visual weapons / violence / road accidents / medical emergencies"
+                />
+                <SpecRow k="pipeline" v="YOLOv8s + acoustic feature verification" />
+                <SpecRow k="channels" v="MQTT + REST API + WebSocket real-time broadcast" />
+                <SpecRow
+                  k="payload"
+                  v="Timestamp, geolocation, bounding box snapshot, confidence"
+                />
+                <SpecRow k="status" v="Backend & Android operator app operational (Phase 2)" />
               </ul>
             </article>
           </Reveal>
@@ -148,36 +199,59 @@ function ResponsePage() {
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <TerminalLabel>compare.tbl</TerminalLabel>
-            <h2 className="text-3xl text-paper md:text-4xl">
-              Tier 1 vs Tier 2
+            <TerminalLabel>tier_comparison.tbl</TerminalLabel>
+            <h2 className="text-3xl text-paper md:text-4xl font-bold">
+              Tier 1 vs Tier 2 Comparison
             </h2>
+            <p className="mt-2 text-sm text-fog">
+              Comparing operational scopes, actuation mechanisms, and response latency targets.
+            </p>
           </Reveal>
           <Reveal delay={0.05}>
-            <div className="mt-10 overflow-x-auto border border-iron">
+            <div className="mt-10 overflow-x-auto border border-iron font-mono">
               <table className="w-full text-left text-sm">
                 <thead className="bg-carbon text-xs uppercase tracking-widest text-steel">
                   <tr>
                     <th className="border-b border-iron p-4">attribute</th>
                     <th className="border-b border-l border-iron p-4 text-paper">
-                      tier_1 · deterrable
+                      tier_1 · localized deterrence
                     </th>
                     <th className="border-b border-l border-iron p-4 text-paper">
-                      tier_2 · non-deterrable
+                      tier_2 · emergency escalation
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ["trigger", "wildlife, loitering, trespass", "weapons, assault, accident, fire"],
-                    ["model", "YOLOv8n + species/sub-class", "YOLOv8s + audio LSTM"],
-                    ["action", "acoustic + visual deterrent", "API dispatch to authorities"],
-                    ["network", "local only (in-node)", "MQTT mesh + LTE uplink"],
-                    ["latency", "~ 200 ms", "< 500 ms"],
-                    ["escalation", "auto → tier_2 on timeout", "logged + persisted"],
+                    [
+                      "trigger",
+                      "Animal intrusion, loitering, perimeter trespass",
+                      "Weapons, assault, vehicle collisions, fire",
+                    ],
+                    ["model", "YOLOv8n edge anomaly model", "YOLOv8s + multi-modal verification"],
+                    [
+                      "actuation",
+                      "Directional strobe & acoustic warning",
+                      "Structured alert dispatch & operator streaming",
+                    ],
+                    [
+                      "networking",
+                      "On-device edge actuation (fully local)",
+                      "Cellular LTE Cat-4 + MQTT + REST fallback",
+                    ],
+                    [
+                      "target latency",
+                      "~ 200 ms local response",
+                      "< 500 ms structured packaging target",
+                    ],
+                    [
+                      "implementation",
+                      "Validated on RPi 5 hardware testbed",
+                      "Validated with Spring Boot backend & Android client",
+                    ],
                   ].map(([a, b, c]) => (
                     <tr key={a} className="border-b border-iron last:border-b-0">
-                      <td className="p-4 text-ember">{a}</td>
+                      <td className="p-4 text-ember font-semibold">{a}</td>
                       <td className="border-l border-iron p-4 text-fog">{b}</td>
                       <td className="border-l border-iron p-4 text-fog">{c}</td>
                     </tr>
@@ -195,9 +269,7 @@ function ResponsePage() {
 function SpecRow({ k, v }: { k: string; v: string }) {
   return (
     <li className="flex flex-col gap-1 border-b border-iron pb-2 sm:flex-row sm:items-baseline sm:gap-4">
-      <span className="w-24 shrink-0 text-xs uppercase tracking-widest text-steel">
-        {k}
-      </span>
+      <span className="w-28 shrink-0 text-xs uppercase tracking-widest text-steel">{k}</span>
       <span className="text-paper">{v}</span>
     </li>
   );
@@ -215,21 +287,17 @@ function FlowStep({
   last?: boolean;
 }) {
   return (
-    <div className="relative">
+    <div className="relative font-mono">
       <div className="flex gap-4 border border-iron bg-carbon p-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-iron bg-graphite">
           <Icon className="h-4 w-4 text-ember" />
         </div>
         <div>
-          <p className="text-xs uppercase tracking-widest text-ember">
-            {title}
-          </p>
-          <p className="mt-1 text-sm text-fog">{body}</p>
+          <p className="text-xs uppercase tracking-widest text-ember font-bold">{title}</p>
+          <p className="mt-1 text-sm text-fog font-sans">{body}</p>
         </div>
       </div>
-      {!last && (
-        <div className="ml-9 h-4 w-px bg-iron" aria-hidden />
-      )}
+      {!last && <div className="ml-9 h-4 w-px bg-iron" aria-hidden />}
     </div>
   );
 }

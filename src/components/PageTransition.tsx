@@ -37,9 +37,5 @@ export function Reveal({
 }
 
 export function TerminalLabel({ children }: { children: ReactNode }) {
-  return (
-    <p className="mb-4 text-xs uppercase tracking-widest text-ember">
-      &gt; {children}
-    </p>
-  );
+  return <p className="mb-4 text-xs uppercase tracking-widest text-ember">&gt; {children}</p>;
 }

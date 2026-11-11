@@ -1,56 +1,71 @@
-# SIP Guardian — llms.txt
+# AWARESPAN — llms.txt
 
-## Project Name
-**SIP Guardian** — AI-Powered Street Safety Device Network
-
-## Purpose
-SIP Guardian is an edge-AI threat detection and safety response system. It uses a distributed mesh of Raspberry Pi edge nodes running local object detection models to identify threats (weapons, suspicious behavior, violence, animals) on city streets, alert operators via a mobile app, and autonomously trigger deterrence responses (sirens, lights).
-
-**Status: research prototype / beta.** Not a certified emergency service. Not yet production-validated for life-safety use.
-
-## Architecture
-
-### Edge Nodes (Raspberry Pi)
-- Run local YOLO/SSD inference — no cloud round-trip for detection
-- Publish incidents via MQTT (QoS 1) to a broker → backend
-- REST fallback when MQTT is unavailable
-- SQLite offline queue for incidents when both paths fail
-- Autonomous deterrence (siren, strobe) via GPIO even when fully offline
-- Heartbeat reporting to backend
-
-### Backend (Spring Boot + Neon PostgreSQL)
-- REST API at `https://api.sip.bchbenjamin.in/`
-- WebSocket for real-time operator notifications
-- MQTT broker integration for bidirectional Pi communication
-- Flyway migrations for schema management
-- JWT authentication for operators
-
-### Android App (Kotlin + Jetpack Compose)
-- Operator dashboard with live incident feed
-- Push notifications via WebSocket
-- Local Room cache for offline viewing
-- Biometric / PIN unlock
-
-### Landing Page (React + TanStack Start)
-- Public marketing site at `https://sip.bchbenjamin.in/`
-- Built with TanStack Start + Vite, deployed on Vercel
-
-## Key Links
-- **Repository:** https://github.com/bchbenjamin/SIP
-- **API:** https://api.sip.bchbenjamin.in/actuator/health
+## Project Identity
+- **Name:** AWARESPAN
+- **Tagline:** Awareness Without Boundaries.
+- **Problem Statement:** An AI-Powered Safety Device.
+- **Official Contact Email:** awarespan@bchbenjamin.in
+- **Repository:** https://github.com/awarespan/awarespan
 - **Landing Page:** https://sip.bchbenjamin.in/
-- **GitHub Releases:** https://github.com/bchbenjamin/SIP/releases
-- **Android APK (beta):** See GitHub Releases
+- **Backend Health:** https://api.sip.bchbenjamin.in/actuator/health
 
-## Threat Detection Capabilities
-- Weapon detection (knife, gun, visual threat signatures)
-- Suspicious behavior detection
-- Violence detection
-- Animal detection (dogs, bears — potential threats)
-- Audio anomaly detection (sirens, gunshots)
+## Brand Philosophy
+The name **AWARESPAN** combines:
+- **AWARE:** Situational awareness, sensor perception, threat recognition, and local intelligence.
+- **SPAN:** Extending that awareness across environments, physical locations, connected edge devices, and communities.
 
-## Limitations
-- Detection accuracy depends on camera angle, lighting, and model weights
-- No integration with real police or emergency services
-- Beta software — expect bugs, false positives, and missed detections
-- Do not use as a substitute for professional security or emergency response
+AWARESPAN is not merely a CCTV product, a weapon detector, or a standalone Raspberry Pi gadget. It is an intelligent safety ecosystem engineered to provide proactive, human-centred situational awareness across distributed environments.
+
+## System Architecture
+
+1. **Multi-Modal Detection**
+   - High-definition and night-vision imaging (Sony IMX708 NoIR + IR illumination).
+   - Thermal sensor array (MLX90640 32x24 IR, 110° FoV).
+   - Passive Infrared (PIR) motion sensing for ultra-low-power wake state.
+   - Dual-microphone acoustic array (MEMS, I2S) for auditory anomaly recognition.
+
+2. **Edge Intelligence**
+   - Local on-device AI inference on edge nodes (Raspberry Pi 5 with YOLOv8n/s, TFLite/PyTorch runtimes).
+   - Near-instantaneous sensor-to-inference pipeline without mandatory cloud latency.
+   - Future upgrade path: NPU-accelerated Hailo AI HAT+ (up to 40 TOPS).
+
+3. **Threat Assessment**
+   - Two-stage evaluation pipeline separating ambient anomalies from actionable threats.
+   - Proportional classification: evaluates context, entity signatures, and confidence thresholds before triggering deterrence or escalation.
+   - False-positive suppression through multi-sensor verification.
+
+4. **Proportional Response**
+   - **Tier 1 (Localized On-Site Deterrence):** On-node acoustic deterrent bursts and high-intensity LED strobe alerts for deterrable situations (e.g. trespass, loitering, wildlife).
+   - **Tier 2 (Emergency Escalation):** Structured alert dispatch containing geolocation, classified metadata, timestamped visual snapshots, and confidence scores.
+
+5. **Connected Infrastructure**
+   - Distributed edge nodes communicating with a shared backend over MQTT (QoS 1) and secure REST fallback.
+   - Offline SQLite queuing ensures zero data loss during connectivity drops.
+   - Peer-to-peer resilience model: adjacent nodes adapt coverage when a neighbouring node reports power or communication loss.
+
+6. **Operator Experience**
+   - Native Android operator application (Kotlin, Jetpack Compose, Room offline cache, WebSocket real-time incident streaming).
+   - Web-based landing and administrative operational portal.
+
+## Feature Status (Implemented vs. Planned)
+
+### Implemented & Validated (Prototype Phase 2)
+- Edge compute pipeline running YOLOv8n inference on Raspberry Pi 5.
+- Night-vision camera integration and thermal telemetry capture.
+- Tier 1 local deterrence actuator triggers via GPIO (auditory alert / strobe).
+- Spring Boot backend with Neon PostgreSQL database and Flyway schema migrations.
+- JWT-authenticated REST and WebSocket notification APIs.
+- Android operator application with live incident feed and offline caching.
+- Resilient Vercel SSR landing page with TanStack Start and automated backend health monitoring.
+
+### Planned & In Active Validation
+- Hailo-10H NPU hardware acceleration HAT integration.
+- Full mesh peer-to-peer automatic FoV sensitivity expansion during simulated node dropouts.
+- Expanded acoustic classification models for nuanced sound anomalies (screams, distress, industrial hazards).
+- Direct municipal/EMS dispatch integrations and standardized emergency protocols.
+
+## Limitations & Operational Boundaries
+- Prototype Phase 2: Not a certified replacement for municipal emergency services or 911/112 public infrastructure.
+- Visual detection performance is subject to optical line-of-sight, lighting conditions, and camera mounting geometry.
+- Autonomous deterrence mechanisms are intended for situational deterrence and alert notification, not physical interdiction.
+- For institutional, evaluative, and collaborative inquiries, contact awarespan@bchbenjamin.in.

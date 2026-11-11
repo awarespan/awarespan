@@ -14,10 +14,8 @@ export function Nav() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2 text-paper">
           <span className="text-ember">●</span>
-          <span className="text-sm tracking-widest">ASIP_127</span>
-          <span className="hidden text-xs text-ash sm:inline">
-            / street-safety-net
-          </span>
+          <span className="text-sm font-bold tracking-widest text-paper">AWARESPAN</span>
+          <span className="hidden text-xs text-ash sm:inline">/ safety-ecosystem</span>
         </Link>
         <div className="flex items-center gap-4">
           <nav className="flex items-center gap-1 text-xs sm:gap-2 sm:text-sm">
@@ -31,13 +29,9 @@ export function Nav() {
               >
                 {({ isActive }) => (
                   <span className="flex items-center gap-1">
-                    <span className={isActive ? "text-ember" : "text-steel"}>
-                      [
-                    </span>
+                    <span className={isActive ? "text-ember" : "text-steel"}>[</span>
                     <span>{l.label}</span>
-                    <span className={isActive ? "text-ember" : "text-steel"}>
-                      ]
-                    </span>
+                    <span className={isActive ? "text-ember" : "text-steel"}>]</span>
                   </span>
                 )}
               </Link>

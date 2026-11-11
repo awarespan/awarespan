@@ -15,17 +15,23 @@ import { PageTransition, Reveal, TerminalLabel } from "../components/PageTransit
 export const Route = createFileRoute("/hardware")({
   head: () => ({
     meta: [
-      { title: "Hardware Infrastructure — AI Street Safety Device Network" },
+      { title: "Hardware Architecture — AWARESPAN" },
       {
         name: "description",
         content:
-          "Raspberry Pi 5 edge core, HD/4K night-vision cameras, MLX90640 thermal, PIR motion, 4G uplink — wired into a fault-tolerant MQTT mesh.",
+          "An AI-Powered Safety Device. High-performance edge compute, multi-modal sensing arrays, and resilient network architecture powering AWARESPAN.",
       },
-      { property: "og:title", content: "Hardware Infrastructure" },
+      { property: "og:title", content: "AWARESPAN Hardware Architecture" },
       {
         property: "og:description",
         content:
-          "Spec sheets for every component in the street safety node, plus the vandalism-resilient mesh.",
+          "Detailed technical specifications for the AWARESPAN edge node, multi-modal sensors, and distributed network topology.",
+      },
+      { name: "twitter:title", content: "Hardware Architecture — AWARESPAN" },
+      {
+        name: "twitter:description",
+        content:
+          "An AI-Powered Safety Device. High-performance edge compute, multi-modal sensing arrays, and resilient network architecture powering AWARESPAN.",
       },
     ],
   }),
@@ -36,6 +42,7 @@ type Part = {
   id: string;
   name: string;
   role: string;
+  statusBadge: string;
   icon: typeof Cpu;
   span: string;
   specs: { k: string; v: string }[];
@@ -47,6 +54,7 @@ const parts: Part[] = [
     id: "rpi5",
     name: "Raspberry Pi 5 (4GB)",
     role: "edge_core",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Cpu,
     span: "md:col-span-2 md:row-span-2",
     specs: [
@@ -54,100 +62,107 @@ const parts: Part[] = [
       { k: "ram", v: "4 GB LPDDR4X" },
       { k: "io", v: "PCIe 2.0 · USB-C PD 27 W" },
       { k: "inference", v: "YOLOv8n/s · TFLite · PyTorch" },
-      { k: "status", v: "SETTLED — non-negotiable" },
+      { k: "status", v: "Settled hardware baseline" },
     ],
-    note: "Runs the full two-stage classifier locally. Upgrade path: AI HAT+ (Hailo-10H, 40 TOPS) for production.",
+    note: "Executes the on-device inference pipeline locally. Production upgrade path: Raspberry Pi AI HAT+ with Hailo-10H NPU (up to 40 TOPS).",
   },
   {
     id: "cam",
     name: "RPi Camera Module 3 Wide (NoIR)",
     role: "visual_input",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Camera,
     span: "md:col-span-2",
     specs: [
       { k: "sensor", v: "Sony IMX708 · 12 MP" },
-      { k: "fov", v: "120° wide" },
+      { k: "fov", v: "120° wide angle" },
       { k: "interface", v: "CSI · 30 fps @ 1080p" },
-      { k: "night", v: "+ external IR illuminator" },
+      { k: "night", v: "External 850nm IR illuminator" },
     ],
   },
   {
     id: "thermal",
     name: "MLX90640 Thermal Sensor",
-    role: "heat_signature",
+    role: "thermal_telemetry",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Thermometer,
     span: "",
     specs: [
       { k: "res", v: "32 × 24 pixels" },
-      { k: "fov", v: "110°" },
-      { k: "range", v: "0–80 °C · ±1.5 °C" },
-      { k: "bus", v: "I2C · 4 Hz" },
+      { k: "fov", v: "110° field of view" },
+      { k: "range", v: "0–80 °C · ±1.5 °C accuracy" },
+      { k: "bus", v: "I2C · 4 Hz refresh" },
     ],
   },
   {
     id: "pir",
     name: "PIR Motion Sensor",
     role: "wake_trigger",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Radar,
     span: "",
     specs: [
-      { k: "type", v: "passive infrared" },
-      { k: "draw", v: "< 50 μA idle" },
-      { k: "role", v: "keeps core in low-power state" },
-      { k: "wake", v: "gpio interrupt → fusion" },
+      { k: "type", v: "Passive infrared detector" },
+      { k: "draw", v: "< 50 μA quiescent idle" },
+      { k: "role", v: "Gated low-power standby" },
+      { k: "wake", v: "GPIO hardware interrupt" },
     ],
   },
   {
     id: "mic",
     name: "ReSpeaker 2-Mic Pi HAT",
-    role: "audio_pipeline",
+    role: "acoustic_sensing",
+    statusBadge: "IN VALIDATION",
     icon: Mic,
     span: "md:col-span-2",
     specs: [
-      { k: "type", v: "dual MEMS · omnidirectional" },
-      { k: "snr", v: "65 dB" },
-      { k: "interface", v: "I2S (HAT stack)" },
-      { k: "model", v: "LSTM + CNN on MFCC" },
-      { k: "detects", v: "screams · distress · gunshots" },
+      { k: "type", v: "Dual MEMS · omnidirectional" },
+      { k: "snr", v: "65 dB signal-to-noise" },
+      { k: "interface", v: "I2S direct bus" },
+      { k: "processing", v: "MFCC feature extraction" },
+      { k: "target", v: "Acoustic anomaly verification" },
     ],
   },
   {
     id: "lte",
     name: "SIM7600E-H 4G HAT",
-    role: "uplink",
+    role: "cellular_uplink",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Radio,
     span: "",
     specs: [
       { k: "standard", v: "LTE Cat-4 + 3G/2G fallback" },
-      { k: "bands", v: "B1/B3/B5/B8/B40/B41 (IN)" },
-      { k: "extra", v: "GPS bundled" },
-      { k: "protocol", v: "MQTT + SMS" },
+      { k: "bands", v: "B1/B3/B5/B8/B40/B41" },
+      { k: "gnss", v: "High-precision GPS integrated" },
+      { k: "protocol", v: "MQTT (QoS 1) + REST + SMS" },
     ],
   },
   {
     id: "deter",
-    name: "Deterrent Module",
+    name: "Proportional Deterrent Module",
     role: "tier_1_actuator",
+    statusBadge: "IMPLEMENTED (PROTOTYPE)",
     icon: Radio,
     span: "",
     specs: [
-      { k: "audio", v: "wide-band external speaker" },
-      { k: "visual", v: "high-lumen LED strobe" },
-      { k: "drive", v: "PWM via GPIO" },
-      { k: "trigger", v: "ML-generated waveform" },
+      { k: "audio", v: "Wide-frequency acoustic emitter" },
+      { k: "visual", v: "High-lumen directional LED strobe" },
+      { k: "drive", v: "MOSFET switch via GPIO" },
+      { k: "trigger", v: "Proportional ML activation" },
     ],
   },
   {
     id: "power",
-    name: "Battery + Solar Pack",
+    name: "Solar & Battery Management Pack",
     role: "field_power",
+    statusBadge: "FIELD TEST READY",
     icon: Battery,
     span: "md:col-span-2",
     specs: [
-      { k: "battery", v: "Li-ion · field-swappable" },
-      { k: "solar", v: "20 W panel · MPPT controller" },
-      { k: "duty", v: "PIR-gated wake reduces avg draw" },
-      { k: "uptime", v: "off-grid roadside deployment" },
+      { k: "battery", v: "Li-ion cell pack (swappable)" },
+      { k: "solar", v: "20 W PV panel + MPPT controller" },
+      { k: "duty", v: "PIR-gated standby minimizes draw" },
+      { k: "uptime", v: "Designed for off-grid operations" },
     ],
   },
 ];
@@ -159,27 +174,36 @@ function HardwarePage() {
       <section className="border-b border-iron py-20">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <TerminalLabel>hardware_bom.md</TerminalLabel>
-            <h1 className="max-w-4xl text-4xl text-paper md:text-6xl">
-              A street-deployable
+            <TerminalLabel>hardware_architecture.md</TerminalLabel>
+            <h1 className="max-w-4xl text-4xl text-paper md:text-6xl font-bold">
+              The AWARESPAN
               <br />
-              <span className="text-ember">node</span>, fully specced.
+              <span className="text-ember">Edge Node</span> Architecture.
             </h1>
-            <p className="mt-6 max-w-3xl text-fog">
-              Off-the-shelf, India-sourceable components — chosen for inference
-              throughput, low-light performance, low idle draw, and field
-              repairability. Every part below is evaluated against documented
-              alternatives in CONTEXT §9.
+            <p className="mt-6 max-w-3xl text-fog leading-relaxed">
+              The physical node implementation serves as the foundational edge tier of the AWARESPAN
+              intelligent safety ecosystem. Engineered with modular, accessible components, each
+              node delivers localized AI inference, multi-modal sensor fusion, and autonomous threat
+              mitigation while reporting status to the central platform.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="https://sip-video.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-between gap-4 border border-ember bg-ember px-6 py-3 text-sm font-bold text-void transition-all hover:bg-paper hover:border-paper"
               >
-                <span>[ VIEW HARDWARE VISUALIZATION ]</span>
+                <span>[ 3D HARDWARE VISUALIZATION ]</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href="https://github.com/awarespan/awarespan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-iron bg-carbon px-6 py-3 text-sm text-paper transition-all hover:border-ember"
+              >
+                <span>[ HARDWARE SCHEMATICS & REPO ]</span>
+                <span className="text-ember">→</span>
               </a>
             </div>
           </Reveal>
@@ -189,6 +213,19 @@ function HardwarePage() {
       {/* BENTO GRID */}
       <section className="border-b border-iron py-24">
         <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-8">
+            <Reveal>
+              <TerminalLabel>bill_of_materials.md</TerminalLabel>
+              <h2 className="text-2xl font-bold text-paper md:text-3xl">
+                Edge Node Component Specifications
+              </h2>
+              <p className="mt-2 text-sm text-fog">
+                Evaluated for real-time edge inference throughput, low-light night-vision fidelity,
+                minimal standby current draw, and field repairability.
+              </p>
+            </Reveal>
+          </div>
+
           <div className="grid auto-rows-[minmax(180px,_auto)] gap-px bg-iron md:grid-cols-4">
             {parts.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.04} className={p.span}>
@@ -197,27 +234,27 @@ function HardwarePage() {
                     <div className="flex h-10 w-10 items-center justify-center border border-iron bg-carbon">
                       <p.icon className="h-5 w-5 text-ember" />
                     </div>
-                    <span className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-steel">
-                      <span className="h-1.5 w-1.5 rounded-full bg-ember" />
-                      {p.role}
-                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-steel">
+                        <span className="h-1.5 w-1.5 rounded-full bg-ember" />
+                        {p.role}
+                      </span>
+                      <span className="border border-iron bg-carbon px-1.5 py-0.5 text-[9px] font-mono text-ash">
+                        {p.statusBadge}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="mt-5 text-lg text-paper">{p.name}</h3>
-                  <ul className="mt-4 space-y-1.5 text-xs">
+                  <h3 className="mt-5 text-lg font-semibold text-paper">{p.name}</h3>
+                  <ul className="mt-4 space-y-1.5 text-xs font-mono">
                     {p.specs.map((s) => (
-                      <li
-                        key={s.k}
-                        className="flex items-baseline gap-3 border-b border-iron pb-1"
-                      >
+                      <li key={s.k} className="flex items-baseline gap-3 border-b border-iron pb-1">
                         <span className="w-20 shrink-0 text-steel">{s.k}</span>
                         <span className="text-fog">{s.v}</span>
                       </li>
                     ))}
                   </ul>
                   {p.note && (
-                    <p className="mt-4 border-l-2 border-ember pl-3 text-xs text-ash">
-                      {p.note}
-                    </p>
+                    <p className="mt-4 border-l-2 border-ember pl-3 text-xs text-ash">{p.note}</p>
                   )}
                 </article>
               </Reveal>
@@ -230,50 +267,50 @@ function HardwarePage() {
       <section className="py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <Reveal>
-            <TerminalLabel>mesh_resilience.md</TerminalLabel>
-            <h2 className="text-3xl text-paper md:text-5xl">
-              Vandalize one.
+            <TerminalLabel>distributed_network_resilience.md</TerminalLabel>
+            <h2 className="text-3xl font-bold text-paper md:text-5xl">
+              Distributed Nodes.
               <br />
-              The mesh adapts.
+              <span className="text-ember">Continuous</span> Protection.
             </h2>
-            <p className="mt-6 text-fog">
-              Every node is a peer in an MQTT-synced network. Each one
-              maintains awareness of its neighbours' status. The moment a node
-              drops offline — power loss, vandalism, hardware fault — adjacent
-              nodes detect it and{" "}
-              <span className="text-paper">
-                autonomously expand their detection sensitivity and inference
-                frequency
-              </span>{" "}
-              to cover the resulting blind spot.
+            <p className="mt-6 text-fog leading-relaxed">
+              In conventional systems, damaging a single camera creates an unmonitored dead zone.
+              AWARESPAN is designed around distributed node communication. Connected edge nodes
+              exchange periodic heartbeat telemetry with the shared backend infrastructure and
+              neighbouring peers.
             </p>
-            <p className="mt-4 text-fog">
-              This property is absent from every existing reviewed system. It
-              is the network's primary differentiator and the reason single
-              points of failure no longer exist in the deployment.
+            <p className="mt-4 text-fog leading-relaxed">
+              If a node experiences sudden power termination, physical tampering, or network
+              isolation, adjacent nodes recognize the failure and dynamically adjust sensing
+              thresholds and reporting frequency to safeguard surrounding sectors.
             </p>
-            <ul className="mt-8 space-y-2 text-sm">
+            <div className="mt-4 border border-iron bg-carbon p-3 text-xs text-ash">
+              <span className="font-semibold text-paper">Engineering Note:</span> Periodic heartbeat
+              monitoring and cloud event aggregation are operational; dynamic P2P sensitivity
+              expansion algorithms are undergoing validation in simulated network testbenches.
+            </div>
+            <ul className="mt-6 space-y-2 text-sm font-mono">
               <li className="flex items-baseline gap-3 border-b border-iron pb-2">
                 <span className="w-32 shrink-0 text-xs uppercase tracking-widest text-steel">
-                  protocol
+                  telemetry
                 </span>
-                <span className="text-paper">MQTT over local wireless</span>
+                <span className="text-paper">MQTT (QoS 1) + REST Fallback</span>
               </li>
               <li className="flex items-baseline gap-3 border-b border-iron pb-2">
                 <span className="w-32 shrink-0 text-xs uppercase tracking-widest text-steel">
-                  topology
+                  storage
                 </span>
-                <span className="text-paper">peer-to-peer mesh</span>
+                <span className="text-paper">Local SQLite offline transaction queue</span>
               </li>
               <li className="flex items-baseline gap-3 border-b border-iron pb-2">
                 <span className="w-32 shrink-0 text-xs uppercase tracking-widest text-steel">
                   heartbeat
                 </span>
-                <span className="text-paper">state-sync, second-resolution</span>
+                <span className="text-paper">Periodic health telemetry & state-sync</span>
               </li>
               <li className="flex items-baseline gap-3">
                 <span className="w-32 shrink-0 text-xs uppercase tracking-widest text-steel">
-                  uplink
+                  cellular
                 </span>
                 <span className="text-paper">LTE Cat-4 via SIM7600E-H</span>
               </li>
@@ -290,7 +327,6 @@ function HardwarePage() {
 }
 
 function MeshDiagram() {
-  // 6 nodes positioned in a hex-ish layout. Node #4 is vandalized.
   const nodes = [
     { id: 1, x: 18, y: 22, dead: false },
     { id: 2, x: 50, y: 12, dead: false },
@@ -314,12 +350,12 @@ function MeshDiagram() {
 
   return (
     <div className="border border-iron bg-carbon">
-      <div className="flex items-center justify-between border-b border-iron px-4 py-2 text-xs text-steel">
+      <div className="flex items-center justify-between border-b border-iron px-4 py-2 text-xs text-steel font-mono">
         <span className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-ember" />
-          mesh_topology.svg
+          network_mesh_topology.svg
         </span>
-        <span>node_4 = OFFLINE · rerouting</span>
+        <span>node_4 = OFFLINE · rerouting active</span>
       </div>
       <div className="relative aspect-square w-full grid-bg">
         <svg
@@ -350,21 +386,15 @@ function MeshDiagram() {
         {nodes.map((n) => (
           <div
             key={n.id}
-            className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+            className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center font-mono"
             style={{ left: `${n.x}%`, top: `${n.y}%` }}
           >
             <div
               className={`flex h-10 w-10 items-center justify-center border ${
-                n.dead
-                  ? "border-slate bg-void text-steel"
-                  : "border-ember bg-graphite text-ember"
+                n.dead ? "border-slate bg-void text-steel" : "border-ember bg-graphite text-ember"
               }`}
             >
-              {n.dead ? (
-                <Network className="h-4 w-4" />
-              ) : (
-                <Cpu className="h-4 w-4" />
-              )}
+              {n.dead ? <Network className="h-4 w-4" /> : <Cpu className="h-4 w-4" />}
             </div>
             <span
               className={`mt-1 text-[10px] uppercase tracking-widest ${
@@ -376,9 +406,9 @@ function MeshDiagram() {
           </div>
         ))}
       </div>
-      <div className="border-t border-iron px-4 py-2 text-xs text-ash">
-        <span className="text-ember">●</span> ember links = active sync ·
-        dashed = traffic re-routed around offline node
+      <div className="border-t border-iron px-4 py-2 text-xs text-ash font-mono">
+        <span className="text-ember">●</span> ember routes = active telemetry sync · dashed =
+        traffic re-routed around simulated offline node
       </div>
     </div>
   );
